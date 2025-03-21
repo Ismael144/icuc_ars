@@ -1,0 +1,118 @@
+/* body {
+    overflow-x: hidden;
+} */
+
+.grid-images {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card {
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.card-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3.5%;
+  right: 3.5%;
+  z-index: 10;
+  border-radius: 5px;
+}
+
+.top-content {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 75%;
+    gap: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    z-index: 20;
+    justify-content: center;
+}
+
+.top-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+.card-container:hover::before {
+    background: rgba(0, 0, 0, .5);
+}
+
+.card-container:hover .top-content {
+    opacity: 100 !important;
+    pointer-events: all;
+}
+
+img.system-image {
+  border-radius: 5px;
+  height: 230px !important;
+  object-position: center;
+  object-fit: cover;
+}
+
+.centerDiv {
+  position: sticky;
+  bottom: 5px;
+  margin-left: 5px;
+  margin-top: 10px;
+  z-index: 100;
+}
+
+.centerDiv span {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: inline-flex;
+  display: inline-block;
+}
+
+.img-nav-info {
+  content: "";
+  position: absolute;
+  top: 65%;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+  background: white;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+
+#imageUploadForm .image-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+#imageUploadForm .image-upload:hover + .btn-sm {
+    padding: 100px !important;
+}
+
+.spinner-border {
+  color: #3762ea;
+}
+
+.preloader {
+  position: absolute;
+  padding: 5px 7px; 
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.61);
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}

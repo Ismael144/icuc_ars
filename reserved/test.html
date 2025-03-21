@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body onload="configure()">
+  <div id="my-camera"></div>
+  <br>
+  <button onclick="captureImage()">Capture Image</button>
+  <button onclick="uploadImages()">Upload All</button>
+  <br>
+  <div id="captured-images"></div>
+  <script src="assets/js/webcam.min.js"></script>
+  <script>
+const capturedImages = [];
+
+function configure() {
+  Webcam.set({
+    width: 480,
+    height: 360,
+    image: 'png',
+  })
+
+  Webcam.attach("#my-camera");
+}
+
+function captureImage() {
+  Webcam.snap((data_uri) => {
+    capturedImages.push(data_uri);
+    
+    // Generate unique image ID (replace with your logic if needed)
+    const imageId = '666a386617ced'; // Example ID
+    
+    const today = new Date();
+    const dateString = `${today.getFullYear()}_${today.getMonth() + 1}_${today.getDate()}`;
+    const filename = `ICUC-${imageId}-` + dateString + '.jpg';
+    
+    document.getElementById("captured-images").innerHTML += `<img src="${data_uri}" alt="Captured Image">`;
+  });
+}
+
+function uploadImages() {
+  if (capturedImages.length === 0) {
+    alert("No images captured yet!");
+    return;
+  }
+
+  const formData = new FormData();
+  for (let i = 0; i < capturedImages.length; i++) {
+    // Generate filename based on pattern
+    const today = new Date();
+    const dateString = `${today.getFullYear()}_${today.getMonth() + 1}_${today.getDate()}`;
+    const filename = `ICUC-${generateImageId()}-` + dateString + '.jpg';
+    
+    // Create Blob object from data URI
+    const blob = dataURItoBlob(capturedImages[i]);
+    
+    // Append Blob to FormData with filename
+    formData.append(`images[${i}]`, blob, filename);
+  }
+
+  fetch('/icuc_ars/api/test', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.text())
+  .then(data => console.log(data)) // Handle success response
+  .catch(error => console.error(error)); // Handle upload errors
+}
+
+// Helper function to convert data URI to Blob
+function dataURItoBlob(dataURI) {
+  const binary = atob(dataURI.replace(/^data:image\/\w+;base64,/, ""));
+  const array = [];
+  for (let i = 0; i < binary.length; i++) {
+    array.push(binary.charCodeAt(i));
+  }
+  return new Blob([new Uint8Array(array)], { type: 'image/jpeg' });
+}
+
+// Function to generate a unique image ID (replace with your implementation)
+function generateImageId() {
+  const randomString = Math.random().toString(36).substring(2, 15);
+  return randomString;
+}
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fffffffd;
+    z-index: 99999;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.color-dark {
+    color: black !important; 
+}

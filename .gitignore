@@ -1,0 +1,10 @@
+.phpunit.result.cache
+vendor
+__pycache__
+.vscode
+haarcascade_frontalface_default.xml
+./index.php
+./index.py
+reserved
+
+# git@github.com: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/icuc_ars.git
